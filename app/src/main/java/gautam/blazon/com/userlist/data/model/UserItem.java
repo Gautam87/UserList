@@ -2,18 +2,32 @@ package gautam.blazon.com.userlist.data.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
 
+import gautam.blazon.com.userlist.UserListDatabase;
+
+@Table(database = UserListDatabase.class)
 public class UserItem {
 
+    @Column
+    @PrimaryKey(autoincrement = true)
     @SerializedName("id")
     @Expose
     private int id;
+
+    @Column
     @SerializedName("name")
     @Expose
     private String name;
+
+    @Column
     @SerializedName("skills")
     @Expose
     private String skills;
+
+    @Column
     @SerializedName("image")
     @Expose
     private String image;
