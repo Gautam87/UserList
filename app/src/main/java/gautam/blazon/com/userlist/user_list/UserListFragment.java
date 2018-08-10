@@ -10,9 +10,12 @@ import android.view.ViewGroup;
 
 import com.marcoscg.infoview.InfoView;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gautam.blazon.com.userlist.R;
+import gautam.blazon.com.userlist.data.model.UserItem;
 
 public class UserListFragment extends Fragment implements UserListContract.View {
 
@@ -66,6 +69,40 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     public void showComplete() {
     }
 
+    @Override
+    public void checkAndAskPermissions() {
+
+    }
+
+    @Override
+    public void showLoader() {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showUserList(List<UserItem> userItems) {
+
+    }
+
+    @Override
+    public void showInfoView() {
+
+    }
+
+    @Override
+    public void hideInfoView() {
+
+    }
+
+    @Override
+    public void setTitle(String title) {
+
+    }
 }
 
 
