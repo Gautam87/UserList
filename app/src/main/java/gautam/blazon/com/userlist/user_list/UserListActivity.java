@@ -1,7 +1,9 @@
-package gautam.blazon.com.userlist;
+package gautam.blazon.com.userlist.user_list;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import gautam.blazon.com.userlist.R;
 
 public class UserListActivity extends AppCompatActivity {
 
