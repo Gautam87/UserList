@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.marcoscg.infoview.InfoView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
 
@@ -25,7 +26,9 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     RecyclerView recyclerView;
 
     private static final String TAG = UserListFragment.class.getName();
-    private UserListPresenter userListPresenter;
+    private RxPermissions mRxPermissions;
+    private UserListPresenter mUserListPresenter;
+    private boolean isPermissionGranted;
 
     public static UserListFragment newInstance() {
         return new UserListFragment();
@@ -39,7 +42,8 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        userListPresenter = new UserListPresenter(getActivity());
+        mUserListPresenter = new UserListPresenter(getActivity());
+        mRxPermissions = new RxPermissions(this);
     }
 
     @Override
@@ -48,7 +52,8 @@ public class UserListFragment extends Fragment implements UserListContract.View 
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
         ButterKnife.bind(this, view);
-        userListPresenter.attachView(this);
+        mUserListPresenter.attachView(this);
+        checkAndAskPermissions();
         return view;
     }
 
@@ -57,12 +62,13 @@ public class UserListFragment extends Fragment implements UserListContract.View 
         super.onActivityCreated(savedInstanceState);
         //avoid fragment to be destroyed on screen rotation
         setRetainInstance(true);
+
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        userListPresenter.detachView();
+        mUserListPresenter.detachView();
     }
 
     @Override
@@ -71,7 +77,20 @@ public class UserListFragment extends Fragment implements UserListContract.View 
 
     @Override
     public void checkAndAskPermissions() {
-
+        mRxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                .subscribe(granted -> {
+                    if (granted) {
+                        isPermissionGranted = granted;
+                        if(mUserListPresenter!=null){
+                            mUserListPresenter.handlePermissionsAllowed();
+                        }
+                    } else {
+                        if(mUserListPresenter!=null){
+                            mUserListPresenter.handlePermissionsDenied();
+                        }
+                    }
+                });
     }
 
     @Override
@@ -95,7 +114,7 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     }
 
     @Override
-    public void setInfoViewMessage( String message) {
+    public void setInfoViewMessage(String message) {
 
     }
 
