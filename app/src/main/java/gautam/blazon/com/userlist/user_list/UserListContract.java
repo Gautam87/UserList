@@ -45,12 +45,15 @@ public class UserListContract {
 
         boolean checkNetwork();
 
-        void HandleNetworkAvailable();
+        void handleNetworkAvailable();
 
-        void HandleNetworkNotAvailable();
+        void handleNetworkNotAvailable();
 
         boolean isResponseValid(GetUserListResponsePojo getUserListResponsePojo);
 
         void handleTryAgainClicked();
+
+        void handleError();
+
     }
 }

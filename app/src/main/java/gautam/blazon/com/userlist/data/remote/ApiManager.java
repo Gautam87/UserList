@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiManager {
     // IP update
-    public static final String BASE_URL = "https://test-api.nevaventures.com/";
+    public static final String BASE_URL = "https://test-api.nevaventures.com";
 
     public UserListWebService getApi() {
 

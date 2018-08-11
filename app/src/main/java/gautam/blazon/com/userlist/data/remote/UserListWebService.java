@@ -6,6 +6,6 @@ import retrofit2.http.GET;
 
 public interface UserListWebService {
 
-    @GET("")
+    @GET("/")
     Observable<GetUserListResponsePojo> getUserList();
 }

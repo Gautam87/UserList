@@ -2,7 +2,9 @@ package gautam.blazon.com.userlist.user_list;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +17,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import gautam.blazon.com.userlist.R;
+import gautam.blazon.com.userlist.adapters.UserListAdapter;
 import gautam.blazon.com.userlist.data.model.UserItem;
+import gautam.blazon.com.userlist.utils.ClickListener;
+import gautam.blazon.com.userlist.utils.RecyclerTouchListener;
 
-public class UserListFragment extends Fragment implements UserListContract.View {
+public class UserListFragment extends Fragment implements UserListContract.View, UserListAdapter.OnItemInteractionListener {
 
     @BindView(R.id.info_view)
     InfoView infoView;
@@ -26,7 +31,7 @@ public class UserListFragment extends Fragment implements UserListContract.View 
 
     private static final String TAG = UserListFragment.class.getName();
     private UserListPresenter mUserListPresenter;
-    private boolean isPermissionGranted;
+    private UserListAdapter mUserListAdapter;
 
     public static UserListFragment newInstance() {
         return new UserListFragment();
@@ -50,6 +55,25 @@ public class UserListFragment extends Fragment implements UserListContract.View 
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
         ButterKnife.bind(this, view);
         mUserListPresenter.attachView(this);
+        infoView.setIconDrawable(getResources().getDrawable(R.drawable.ic_exclamation));
+        infoView.setOnTryAgainClickListener(new InfoView.OnTryAgainClickListener() {
+            @Override
+            public void onTryAgainClick() {
+                onTryAgainClick();
+            }
+        });
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
+                recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, final int position) { }
+
+            @Override
+            public void onLongClick(View view, int position) { }
+        }));
+
         mUserListPresenter.checkUserListInDb();
         return view;
     }
@@ -84,38 +108,44 @@ public class UserListFragment extends Fragment implements UserListContract.View 
 
     @Override
     public void showUserList(List<UserItem> userItems) {
-
+        mUserListAdapter = new UserListAdapter(getActivity(), userItems, this);
+        recyclerView.setAdapter(mUserListAdapter);
 
     }
 
     @Override
     public void showInfoView() {
-
+        infoView.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setInfoViewMessage(String message) {
-
+        infoView.setMessage(message);
     }
 
     @Override
     public void hideInfoView() {
-
+        infoView.setVisibility(View.INVISIBLE);
     }
 
     @Override
     public void setTitle(String title) {
-
+        if (getActivity() != null && getActivity().getActionBar() != null) {
+            getActivity().getActionBar().setTitle(title);
+        }
     }
 
     @Override
     public void showSnackBar(String message) {
-
+        if (getActivity() != null) {
+            Snackbar.make(getActivity().findViewById(android.R.id.content),
+                    message, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     @Override
     public void tryAgainClicked() {
-
+        mUserListPresenter.fetchUserListFromApi();
     }
 
 }

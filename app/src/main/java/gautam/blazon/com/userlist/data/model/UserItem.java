@@ -54,7 +54,7 @@ public class UserItem extends BaseModel{
         this.idLocal = idLocal;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
