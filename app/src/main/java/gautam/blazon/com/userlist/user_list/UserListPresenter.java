@@ -2,8 +2,11 @@ package gautam.blazon.com.userlist.user_list;
 
 import android.content.Context;
 
+import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import java.util.List;
 
+import gautam.blazon.com.userlist.R;
 import gautam.blazon.com.userlist.base.BasePresenter;
 import gautam.blazon.com.userlist.data.model.GetUserListResponsePojo;
 import gautam.blazon.com.userlist.data.model.UserItem;
@@ -35,7 +38,13 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
 
     @Override
     public void checkUserListInDb() {
-
+        List<UserItem> userItems = SQLite.select().
+                from(UserItem.class).queryList();
+        if(userItems.size()>0){
+            handleUserListFromDb(userItems);
+        }else{
+            handleEmptyDb();
+        }
     }
 
     @Override
@@ -71,12 +80,13 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
 
     @Override
     public void HandleNetworkAvailable() {
-
+        this.fetchUserListFromApi();
     }
 
     @Override
     public void HandleNetworkNotAvailable() {
-
+        getMvpView().setInfoViewMessage(context.getString(R.string.error_network_unavailable));
+        getMvpView().showInfoView();
     }
 
     @Override

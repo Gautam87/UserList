@@ -50,6 +50,7 @@ public class UserListFragment extends Fragment implements UserListContract.View 
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
         ButterKnife.bind(this, view);
         mUserListPresenter.attachView(this);
+        mUserListPresenter.checkUserListInDb();
         return view;
     }
 
@@ -73,16 +74,17 @@ public class UserListFragment extends Fragment implements UserListContract.View 
 
     @Override
     public void showLoader() {
-
+        infoView.setProgress(true);
     }
 
     @Override
     public void hideLoader() {
-
+        infoView.setProgress(false);
     }
 
     @Override
     public void showUserList(List<UserItem> userItems) {
+
 
     }
 
@@ -104,10 +106,6 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     @Override
     public void setTitle(String title) {
 
-    }
-
-    @Override
-    public void callApi() {
     }
 
     @Override

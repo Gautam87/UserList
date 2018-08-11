@@ -24,8 +24,6 @@ public class UserListContract {
 
         void setTitle(String title);
 
-        void callApi();
-
         void showSnackBar(String message);
 
         void tryAgainClicked();

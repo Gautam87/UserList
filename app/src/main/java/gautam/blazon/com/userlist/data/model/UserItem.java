@@ -5,11 +5,12 @@ import com.google.gson.annotations.SerializedName;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
 import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
 import gautam.blazon.com.userlist.UserListDatabase;
 
 @Table(database = UserListDatabase.class)
-public class UserItem {
+public class UserItem extends BaseModel{
 
     @Column(getterName = "getIdLocal")
     @PrimaryKey(autoincrement = true)
