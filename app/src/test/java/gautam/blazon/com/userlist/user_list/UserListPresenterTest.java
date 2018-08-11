@@ -52,6 +52,21 @@ public class UserListPresenterTest {
     }
 
     @Test
+    public void HandleNetworkAvailable(){
+        doReturn(true).when(mNetConnectionDetector.isConntectingToInternet());
+        mPresenter.HandleNetworkAvailable();
+        verify(mPresenterSpy).fetchUserListFromApi();
+    }
+
+    @Test
+    public void HandleNetworkNotAvailable(){
+        doReturn(false).when(mNetConnectionDetector.isConntectingToInternet());
+        mPresenter.HandleNetworkNotAvailable();
+        verify(mView).setInfoViewMessage(mMockContext.getString(R.string.error_network_unavailable));
+        verify(mView).showInfoView();
+    }
+
+    @Test
     public void checkUserListInDbWithoutContents() {
         mPresenter.checkUserListInDb();
         List<UserItem> userItems = new ArrayList<>();
