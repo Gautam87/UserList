@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.marcoscg.infoview.InfoView;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
 
@@ -26,7 +25,6 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     RecyclerView recyclerView;
 
     private static final String TAG = UserListFragment.class.getName();
-    private RxPermissions mRxPermissions;
     private UserListPresenter mUserListPresenter;
     private boolean isPermissionGranted;
 
@@ -43,7 +41,6 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mUserListPresenter = new UserListPresenter(getActivity());
-        mRxPermissions = new RxPermissions(this);
     }
 
     @Override
@@ -53,7 +50,6 @@ public class UserListFragment extends Fragment implements UserListContract.View 
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
         ButterKnife.bind(this, view);
         mUserListPresenter.attachView(this);
-        checkAndAskPermissions();
         return view;
     }
 
@@ -73,24 +69,6 @@ public class UserListFragment extends Fragment implements UserListContract.View 
 
     @Override
     public void showComplete() {
-    }
-
-    @Override
-    public void checkAndAskPermissions() {
-        mRxPermissions.request(android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                android.Manifest.permission.READ_EXTERNAL_STORAGE)
-                .subscribe(granted -> {
-                    if (granted) {
-                        isPermissionGranted = granted;
-                        if(mUserListPresenter!=null){
-                            mUserListPresenter.handlePermissionsAllowed();
-                        }
-                    } else {
-                        if(mUserListPresenter!=null){
-                            mUserListPresenter.handlePermissionsDenied();
-                        }
-                    }
-                });
     }
 
     @Override
