@@ -20,9 +20,17 @@ public class UserListContract {
 
         void showInfoView();
 
+        void setInfoViewMessage(String message);
+
         void hideInfoView();
 
         void setTitle(String title);
+
+        void callApi();
+
+        void showSnackBar(String message);
+
+        void tryAgainClicked();
     }
 
     interface Presenter {
@@ -41,7 +49,16 @@ public class UserListContract {
 
         void handleUserListResponse(GetUserListResponsePojo getUserListResponsePojo);
 
-        void validateID(UserItem userItem);
+        boolean validateID(UserItem userItem);
 
+        boolean checkNetwork();
+
+        void HandleNetworkAvailable();
+
+        void HandleNetworkNotAvailable();
+
+        boolean isResponseValid(GetUserListResponsePojo getUserListResponsePojo);
+
+        void handleTryAgainClicked();
     }
 }

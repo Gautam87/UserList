@@ -69,7 +69,33 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
     }
 
     @Override
-    public void validateID(UserItem userItem) {
+    public boolean validateID(UserItem userItem) {
+        return false;
+    }
+
+    @Override
+    public boolean checkNetwork() {
+        return false;
+    }
+
+
+    @Override
+    public void HandleNetworkAvailable() {
+
+    }
+
+    @Override
+    public void HandleNetworkNotAvailable() {
+
+    }
+
+    @Override
+    public boolean isResponseValid(GetUserListResponsePojo getUserListResponsePojo) {
+        return false;
+    }
+
+    @Override
+    public void handleTryAgainClicked() {
 
     }
 }

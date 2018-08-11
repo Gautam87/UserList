@@ -95,6 +95,11 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     }
 
     @Override
+    public void setInfoViewMessage( String message) {
+
+    }
+
+    @Override
     public void hideInfoView() {
 
     }
@@ -103,6 +108,21 @@ public class UserListFragment extends Fragment implements UserListContract.View 
     public void setTitle(String title) {
 
     }
+
+    @Override
+    public void callApi() {
+    }
+
+    @Override
+    public void showSnackBar(String message) {
+
+    }
+
+    @Override
+    public void tryAgainClicked() {
+
+    }
+
 }
 
 

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">User List</string>
+    <string name="error_network_unavailable">Network Unavailable</string>
+    <string name="error_storage_permissions_denied">Enable storage permissions to store offline.</string>
+    <string name="error_no_users_in_db">No users found locally.</string>
+    <string name="error_no_users">No users found</string>
+    <string name="error_incorrect_response_code">Something went wrong. Please try again</string>
 </resources>
