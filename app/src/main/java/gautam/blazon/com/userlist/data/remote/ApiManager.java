@@ -2,6 +2,8 @@ package gautam.blazon.com.userlist.data.remote;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import gautam.blazon.com.userlist.data.model.GetUserListResponsePojo;
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -27,5 +29,10 @@ public class ApiManager {
 
         return retrofit.create(UserListWebService.class);
     }
+
+    public Observable<GetUserListResponsePojo> getUserList() {
+        return getApi().getUserList();
+    }
+
 
 }
