@@ -34,16 +34,6 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
     }
 
     @Override
-    public void handlePermissionsAllowed() {
-
-    }
-
-    @Override
-    public void handlePermissionsDenied() {
-
-    }
-
-    @Override
     public void checkUserListInDb() {
 
     }

@@ -52,28 +52,6 @@ public class UserListPresenterTest {
     }
 
     @Test
-    public void handlePermissionsAllowedAndNetworkAvailable() {
-        mPresenter.handlePermissionsAllowed();
-        when(mPresenterSpy.checkNetwork()).thenReturn(true);
-        verify(mView).callApi();
-    }
-
-    @Test
-    public void handlePermissionsAllowedAndNetworkNotAvailable() {
-        mPresenter.handlePermissionsAllowed();
-        when(mPresenterSpy.checkNetwork()).thenReturn(false);
-        verify(mView).showInfoView();
-        verify(mView).setInfoViewMessage(mMockContext.getString(R.string.error_network_unavailable));
-    }
-
-    @Test
-    public void handlePermissionsDenied() {
-        mPresenter.handlePermissionsDenied();
-        verify(mView).showSnackBar(mMockContext.getString(R.string.error_storage_permissions_denied));
-        verify(mView).callApi();
-    }
-
-    @Test
     public void checkUserListInDbWithoutContents() {
         mPresenter.checkUserListInDb();
         List<UserItem> userItems = new ArrayList<>();

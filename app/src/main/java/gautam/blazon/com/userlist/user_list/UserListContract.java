@@ -10,8 +10,6 @@ public class UserListContract {
 
     public interface View extends MvpView {
 
-        void checkAndAskPermissions();
-
         void showLoader();
 
         void hideLoader();
@@ -34,10 +32,6 @@ public class UserListContract {
     }
 
     interface Presenter {
-
-        void handlePermissionsAllowed();
-
-        void handlePermissionsDenied();
 
         void checkUserListInDb();
 
