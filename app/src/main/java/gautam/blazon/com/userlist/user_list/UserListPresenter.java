@@ -53,7 +53,6 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
             getMvpView().hideLoader();
             handleUserListFromDb(userItems);
         } else {
-//            handleEmptyDb();
             fetchUserListFromApi();
         }
     }
@@ -69,11 +68,15 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
         getMvpView().hideLoader();
         getMvpView().hideInfoView();
         getMvpView().showUserList(userItems);
+        getMvpView().setTitle(context.getString(R.string.user_list_db));
+
     }
 
     @Override
     public void fetchUserListFromApi() {
         if(checkNetwork()) {
+            getMvpView().showLoader();
+            getMvpView().showInfoView();
             compositeDisposable.add(apiManager.getUserList()
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
@@ -96,6 +99,7 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
         }else {
             getMvpView().hideLoader();
             getMvpView().setInfoViewMessage(context.getString(R.string.error_network_unavailable));
+            getMvpView().showInfoView();
         }
     }
 
@@ -116,6 +120,9 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
                     Delete.table(UserItem.class);
                     //save in bulk
                     FlowManager.getModelAdapter(UserItem.class).saveAll(userItems);
+                    getMvpView().hideLoader();
+                    getMvpView().hideInfoView();
+                    getMvpView().setTitle(context.getString(R.string.user_list_api));
 
                 } else {
                     getMvpView().setInfoViewMessage(context.getString(R.string.error_no_users));

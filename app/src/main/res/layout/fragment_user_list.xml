@@ -1,6 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:background="@android:color/holo_blue_light"
     android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
@@ -13,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:iv_buttonText="Try again"
         app:iv_buttonTextColor="@color/colorPrimary"
         app:iv_message="Something went wrong."

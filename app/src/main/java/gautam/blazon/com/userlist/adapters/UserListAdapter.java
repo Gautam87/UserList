@@ -64,13 +64,18 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.MyView
 
     @Override
     public void onBindViewHolder(UserListAdapter.MyViewHolder holder, final int position) {
-        Picasso.with(mContext)
-                .load(mList.get(position).getImage())
-                .resize(100, 100)
-                .centerCrop()
-                .into(holder.ivUser);
-        holder.tvName.setText(mList.get(position).getName());
-        holder.tvSkills.setText(mList.get(position).getSkills());
+        if(mList.get(position).getImage()!=null && !mList.get(position).getImage().equals("")) {
+            Picasso.with(mContext)
+                    .load(mList.get(position).getImage())
+                    .resize(150, 150)
+                    .placeholder(R.drawable.ic_user_default)
+                    .centerCrop()
+                    .into(holder.ivUser);
+        }else{
+            holder.ivUser.setImageResource(R.drawable.ic_user_default);
+        }
+        holder.tvName.setText(mList.get(position).getName().trim());
+        holder.tvSkills.setText(mList.get(position).getSkills().trim());
 
 //        holder.relativeUserProfile.setOnClickListener(new View.OnClickListener() {
 //            @Override

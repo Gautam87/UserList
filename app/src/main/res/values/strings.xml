@@ -6,4 +6,7 @@
     <string name="error_no_users">No users found</string>
     <string name="error_incorrect_response_code">Something went wrong. Please try again</string>
     <string name="error_something_went_wrong">Something went wrong</string>
+    <string name="user_list_api">User List from API</string>
+    <string name="user_list_db">User List from DB</string>
+    <string name="action_refresh">Refresh</string>
 </resources>

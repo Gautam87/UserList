@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -45,6 +48,7 @@ public class UserListFragment extends Fragment implements UserListContract.View,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         mUserListPresenter = new UserListPresenter(getActivity());
     }
 
@@ -59,7 +63,7 @@ public class UserListFragment extends Fragment implements UserListContract.View,
         infoView.setOnTryAgainClickListener(new InfoView.OnTryAgainClickListener() {
             @Override
             public void onTryAgainClick() {
-                onTryAgainClick();
+                tryAgainClicked();
             }
         });
         recyclerView.setHasFixedSize(true);
@@ -130,8 +134,8 @@ public class UserListFragment extends Fragment implements UserListContract.View,
 
     @Override
     public void setTitle(String title) {
-        if (getActivity() != null && getActivity().getActionBar() != null) {
-            getActivity().getActionBar().setTitle(title);
+        if (getActivity() != null ) {
+            getActivity().setTitle(title);
         }
     }
 
@@ -146,6 +150,23 @@ public class UserListFragment extends Fragment implements UserListContract.View,
     @Override
     public void tryAgainClicked() {
         mUserListPresenter.fetchUserListFromApi();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_user_list, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch (id) {
+            case R.id.action_refresh:
+                tryAgainClicked();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
 }
