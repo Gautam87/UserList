@@ -5,7 +5,7 @@ Users can try again when the network isn't available and can refresh the data wh
 
 ## Screenshots :
 ![Network Unavailable](/Gautam1787/userlist/raw/master/screenshots/1.png)
-![Network Unavailable](/Gautam1787/userlist/raw/master/screenshots/2.png)
-![Network Unavailable](/Gautam1787/userlist/raw/master/screenshots/3.png)
-![Network Unavailable](/Gautam1787/userlist/raw/master/screenshots/4.png)
-![Network Unavailable](/Gautam1787/userlist/raw/master/screenshots/5.png)
+![Loading Screen](/Gautam1787/userlist/raw/master/screenshots/2.png)
+![List from API](/Gautam1787/userlist/raw/master/screenshots/3.png)
+![Landscape Mode](/Gautam1787/userlist/raw/master/screenshots/4.png)
+![Local DB](/Gautam1787/userlist/raw/master/screenshots/5.png)
