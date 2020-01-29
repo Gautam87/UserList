@@ -11,6 +11,6 @@ Users can try again when the network isn't available and can refresh the data wh
 </p>
 
 <p align="center">
-  <img src="screenshots/4.png" width="400" alt="Landscape Mode">
   <img src="screenshots/5.png" width="200" alt="Local DB">
+  <img src="screenshots/4.png" width="400" alt="Landscape Mode">
 </p>
