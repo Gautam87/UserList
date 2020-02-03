@@ -1,7 +1,7 @@
 package gautam.blazon.com.userlist.adapters;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +65,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.MyView
     @Override
     public void onBindViewHolder(UserListAdapter.MyViewHolder holder, final int position) {
         if(mList.get(position).getImage()!=null && !mList.get(position).getImage().equals("")) {
-            Picasso.with(mContext)
+            Picasso.get()
                     .load(mList.get(position).getImage())
                     .resize(150, 150)
                     .placeholder(R.drawable.ic_user_default)

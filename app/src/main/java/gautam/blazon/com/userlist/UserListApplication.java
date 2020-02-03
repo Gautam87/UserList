@@ -1,7 +1,7 @@
 package gautam.blazon.com.userlist;
 
-import android.support.multidex.MultiDexApplication;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.multidex.MultiDexApplication;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.facebook.stetho.Stetho;
 import com.raizlabs.android.dbflow.config.FlowConfig;
