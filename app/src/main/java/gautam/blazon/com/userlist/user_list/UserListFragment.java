@@ -17,11 +17,18 @@ import com.marcoscg.infoview.InfoView;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.android.support.AndroidSupportInjection;
 import gautam.blazon.com.userlist.R;
+import gautam.blazon.com.userlist.UserListApplication;
 import gautam.blazon.com.userlist.adapters.UserListAdapter;
 import gautam.blazon.com.userlist.data.model.UserItem;
+import gautam.blazon.com.userlist.di.component.DaggerActivityComponent;
+import gautam.blazon.com.userlist.di.module.ContextModule;
+import gautam.blazon.com.userlist.di.module.UserListModule;
 import gautam.blazon.com.userlist.utils.ClickListener;
 import gautam.blazon.com.userlist.utils.RecyclerTouchListener;
 
@@ -33,7 +40,9 @@ public class UserListFragment extends Fragment implements UserListContract.View,
     RecyclerView recyclerView;
 
     private static final String TAG = UserListFragment.class.getName();
-    private UserListPresenter mUserListPresenter;
+
+    @Inject
+    UserListPresenter userListPresenter;
     private UserListAdapter mUserListAdapter;
 
     public static UserListFragment newInstance() {
@@ -42,23 +51,35 @@ public class UserListFragment extends Fragment implements UserListContract.View,
 
     public UserListFragment() {
         // Required empty public constructor
+
     }
+
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mUserListPresenter = new UserListPresenter(getActivity());
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        DaggerActivityComponent.builder()
+                .appComponent(UserListApplication.get(getContext()).component())
+                .userListModule(new UserListModule(this))
+                .contextModule(new ContextModule(getContext()))
+                .build()
+                .inject(this);
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_user_list, container, false);
         ButterKnife.bind(this, view);
-        mUserListPresenter.attachView(this);
+
+
+        userListPresenter.attachView(this);
         infoView.setIconDrawable(getResources().getDrawable(R.drawable.ic_exclamation));
         infoView.setOnTryAgainClickListener(new InfoView.OnTryAgainClickListener() {
             @Override
@@ -78,7 +99,7 @@ public class UserListFragment extends Fragment implements UserListContract.View,
             public void onLongClick(View view, int position) { }
         }));
 
-        mUserListPresenter.checkUserListInDb();
+        userListPresenter.checkUserListInDb();
         return view;
     }
 
@@ -93,7 +114,7 @@ public class UserListFragment extends Fragment implements UserListContract.View,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mUserListPresenter.detachView();
+        userListPresenter.detachView();
     }
 
     @Override
@@ -149,7 +170,7 @@ public class UserListFragment extends Fragment implements UserListContract.View,
 
     @Override
     public void tryAgainClicked() {
-        mUserListPresenter.fetchUserListFromApi();
+        userListPresenter.fetchUserListFromApi();
     }
 
     @Override

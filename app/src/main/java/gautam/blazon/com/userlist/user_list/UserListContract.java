@@ -29,7 +29,7 @@ public class UserListContract {
         void tryAgainClicked();
     }
 
-    interface Presenter {
+    public interface Presenter {
 
         void checkUserListInDb();
 

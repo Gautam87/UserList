@@ -2,8 +2,8 @@ package gautam.blazon.com.userlist.user_list;
 
 import android.content.Context;
 
-import junit.framework.Assert;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -20,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 import gautam.blazon.com.userlist.R;
 import gautam.blazon.com.userlist.data.model.GetUserListResponsePojo;
 import gautam.blazon.com.userlist.data.model.UserItem;
+import gautam.blazon.com.userlist.data.remote.ApiManager;
 import gautam.blazon.com.userlist.utils.NetConnectionDetector;
 import io.reactivex.Scheduler;
 import io.reactivex.android.plugins.RxAndroidPlugins;
@@ -56,13 +57,16 @@ public class UserListPresenterTest {
     @Mock
     private NetConnectionDetector mNetConnectionDetector;
 
+    private ApiManager mApiManager;
+
     @Spy
     private List<UserItem> userItems = new ArrayList<>();
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mPresenter = new UserListPresenter(mMockContext);
+        mApiManager = new ApiManager();
+        mPresenter = new UserListPresenter(mMockContext,mView, mApiManager);
         mPresenterSpy = spy(mPresenter);
         mPresenter.attachView(mView);
         mPresenterSpy.attachView(mView);

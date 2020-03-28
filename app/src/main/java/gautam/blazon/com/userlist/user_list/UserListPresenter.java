@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import gautam.blazon.com.userlist.R;
 import gautam.blazon.com.userlist.base.BasePresenter;
 import gautam.blazon.com.userlist.data.model.GetUserListResponsePojo;
@@ -26,10 +28,20 @@ public class UserListPresenter extends BasePresenter<UserListContract.View> impl
     private static final String TAG = UserListPresenter.class.getName();
     Context context;
     private CompositeDisposable compositeDisposable;
-    private ApiManager apiManager = new ApiManager();
 
-    public UserListPresenter(Context context) {
+    ApiManager apiManager;
+//
+//    public UserListPresenter(Context context) {
+//        this.context = context;
+//        compositeDisposable = new CompositeDisposable();
+//    }
+
+
+    @Inject
+    public UserListPresenter(Context context ,UserListContract.View view, ApiManager apiManager) {
+        super.attachView(view);
         this.context = context;
+        this.apiManager = apiManager;
         compositeDisposable = new CompositeDisposable();
     }
 
